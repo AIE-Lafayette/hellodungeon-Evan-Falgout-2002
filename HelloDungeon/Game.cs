@@ -25,11 +25,45 @@ namespace HelloDungeon
 
 
         }
+        string DisplayMenu(string prompt, string options1, string option2, string option3 )
+        {
+            string playerchoice = "";
+            while (playerchoice != "1" && playerchoice != "2" && playerchoice != "3")
+            {
+                //Display Prompt
+                Console.Clear();
+                Console.WriteLine(prompt);
+                //Display options
+                Console.WriteLine("1." + options1);
+                Console.WriteLine("2." + option2);
+                Console.WriteLine("3." + option3);
+
+                
+                
+                //Player input
+                Console.Write(">");
+                playerchoice = Console.ReadLine();
+
+
+                //Display error message
+                if (playerchoice != "1" && playerchoice != "2" && playerchoice != "3")
+                {
+                    Console.Clear();
+                    Console.WriteLine("Invalid input");
+                    Console.ReadKey(true);
+                    Console.WriteLine("press any key to continue");
+
+                }
+                
+            }
+            return "";
+
+        }
     
 
         public void Run()
         {
-            Evencount(0, 5);
+           
                 
                
             
@@ -86,39 +120,21 @@ namespace HelloDungeon
                 {
                     Console.WriteLine("Nice to meet you " + name + ".");
                 }
-               
-
+  
                 else if (playerchoice == "2")
                 {
                     Console.WriteLine("I see your just waking up so who are you really?");
                 }
               
-
             }
            
             bool ClassSelected = false;
             while (ClassSelected == false)
             {
 
+                DisplayMenu("Now that i know your name what is your aptitude?", "Mage", "Knight", "Rogue");
 
-
-
-
-
-
-
-                Console.WriteLine("Now that i know your name what is your aptitude?");
-                Console.WriteLine("1.Mage");
-                Console.WriteLine("2.Knight");
-                Console.WriteLine("3.Rogue");
-                playerchoice = Console.ReadLine();
-
-
-
-
-
-
-
+                //Mage Stats
                 if (playerchoice == "1" || playerchoice == "Mage")
                 {
                     Health = 75.0f;
@@ -132,9 +148,10 @@ namespace HelloDungeon
                     speed = 6;
 
                     Console.WriteLine(name + "Has Chosen Mage");
+                   
 
                 }
-
+                //Knight Stats
                 if (playerchoice == "2" || playerchoice == "Knight")
                 {
                     Health = 100.0f;
@@ -150,6 +167,7 @@ namespace HelloDungeon
                     Console.WriteLine(name + " Has Chosen Knight");
 
                 }
+                //Rogue Stats
                 if (playerchoice == "3" || playerchoice == "Rogue")
                 {
                     Health = 75.0f;
@@ -187,11 +205,7 @@ namespace HelloDungeon
                     {
 
 
-                        Console.WriteLine("Now that i know your name what is your aptitude?");
-                        Console.WriteLine("1.Mage");
-                        Console.WriteLine("2.Knight");
-                        Console.WriteLine("3.Rogue");
-                        playerchoice = Console.ReadLine();
+                        DisplayMenu("Now that i know your name what is your aptitude?", "Mage", "Knight", "Rogue");
 
 
 
@@ -279,15 +293,11 @@ namespace HelloDungeon
                 Console.WriteLine("My name is Nio Sef but my friends call me Mr.Anderson");
                 Console.WriteLine("I only jest.");
                 Console.WriteLine("I run the local inn so its my job to get acquainted with all new faces i come across");
-                Console.WriteLine("Would you like to accompany me to the inn" + name + "?");
+
 
                 // Player 1st choice
-
-                Console.WriteLine("1. Accompany Nio to the Inn and Start the Tutorial");
-                Console.WriteLine("2. Skip the tutorial and Find Your own way in the land of Ertuum");
-
-                playerchoice = Console.ReadLine();
-
+                DisplayMenu("Would you like to accompany me to the inn" + name + "?", " Accompany Nio to the Inn and Start the Tutorial", "Skip the tutorial and Find Your own way in the land of Ertuum","Punch Nio");
+               
 
 
 
