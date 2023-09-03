@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Data;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
@@ -13,18 +14,7 @@ namespace HelloDungeon
     class Game
     {
          
-       void Evencount(int start, int end)
-        {
-            for(int i = start; i <= end; i+=1)
-            {
-                Console.WriteLine(i);
-
-
-            }
-
-
-
-        }
+      
         string DisplayMenu(string prompt, string options1, string option2, string option3 )
         {
             string playerchoice = "";
@@ -59,13 +49,122 @@ namespace HelloDungeon
             return "";
 
         }
-    
+        void BattleSystem(string enemyname, float enmDmg, float EnmHealth, bool EnemyEncounter)
+        {
 
+            float Health = 1.0f;
+            float Damage = 1.0f;    
+
+            Random random = new Random();
+            int rand = random.Next(1, 100);
+
+
+            String BattleChoice = "";
+           
+            while (Health>0)
+            {
+
+                // Battle UI
+                Console.WriteLine(" ====================================");
+                Console.WriteLine("| 1. Light Attack    2. Heavy Attack |");
+                Console.WriteLine("| 3. Dodge           4. Block        | ");
+                Console.WriteLine("|            5. Heal                 |");
+                Console.WriteLine(" ====================================");
+                Console.WriteLine(Health + EnmHealth);
+                
+                if (BattleChoice == "1" + (rand<=75))
+                {
+                    //Quick Attack Success
+                    Console.WriteLine(" You Dash Forward and Strike Your Enemy Twice in Quick Succession");
+                    Console.WriteLine("You Were to Quick For The Enemy To React");
+                    Console.WriteLine("You deal" + Damage + "and prepare for your opponents next move");
+                    Console.ReadKey();
+                }
+
+                else if (BattleChoice == "1" + (rand <= 25))
+                {
+                    //Quick Attack Fail
+                    Console.WriteLine(" You Dash Forward and Strike at Your Enemy Twice in Quick Succession");
+                    Console.WriteLine(" Your oppenent anticipated a hasty strike and countered");
+                    Console.WriteLine("Enemey Deals" + Damage + "You lose" + Health);
+                    Console.ReadKey();
+                } 
+                if(BattleChoice == "2" + (rand <=25))
+                {
+                    //Heavy Attack Crit
+                     Console.WriteLine("You wind up for a heavyblow and" + "THWACK!!" + "Dealt" + Damage*2);
+                    Console.WriteLine("Enemy falls down and loses" + EnmHealth);
+                    Console.ReadKey();
+                }
+                else if(BattleChoice == "2" + (rand<=50))
+                {
+                    //Heavy Attack Success
+                    Console.WriteLine("You wind up for a heavyblow and" + "Dealt" + Damage);
+                    Console.WriteLine("Enemy stumbles but collects himself hastily" + "Loses" +EnmHealth);
+                    Console.ReadKey();
+                }
+                else if(BattleChoice == "2" + (rand <= 25))
+                {
+                    // Heavy Attack Fail
+                    Console.WriteLine("Enemy saw your attack from a mile away and dodged");
+                    Console.WriteLine("Battle Returns to Still");
+                    Console.ReadKey();
+                }
+                if (BattleChoice == "3" + (rand<=50))
+                {
+                    // DOdge Success
+                    Console.WriteLine("Quick on your feet you saw your enemy make his move before they did");
+                    Console.WriteLine("You avoided his blow this time");
+                    Console.ReadKey();
+                }
+                else if (BattleChoice == "3" + (rand <= 50))
+                { 
+                    // DOdge Fail
+                    Console.WriteLine("Quick on your feet you saw your enemy make his move before they did");
+                    Console.WriteLine("However you were to slow to avoid his blow");
+                    Console.WriteLine("You lost" + Health);
+                    Console.ReadKey();
+
+                }
+                if (BattleChoice == "4" + (rand <= 100))
+                {
+                    // Block Damage
+                    Console.WriteLine("You Block their strike and return to still");
+                    Console.ReadKey();
+                }
+                if ( BattleChoice == "5" + (rand <= 100))
+                {
+                    // Health Spell
+                    Console.WriteLine("Holding your palms to your heart you shout 'Salutem recuperandam'");
+                    Console.WriteLine("You Recover" + Health);
+                    Console.ReadKey();
+
+                }
+
+
+                
+
+            }
+
+
+        }
+
+        
+    
+        
         public void Run()
         {
-           
-                
-               
+
+
+
+            Random random = new Random();
+            int rand = random.Next(1, 100);
+
+
+
+            float enmDmg = 0.0f;
+                float EnmHealth = 1.0f;
+                bool EnemyEncounter=false;
             
 
             ///Loop for every choice
@@ -96,7 +195,7 @@ namespace HelloDungeon
             Console.WriteLine("You slowly come to your senses and notice a figure moving toward you.");
             Console.WriteLine(" You prepare yourself for conflict, However you let your guard down when they stop.");
             Console.WriteLine(" With a puzzled expression they ask 'Who are You?' ");
-
+            Console.Write(">");
             // loop that allows player to Rename character
             while (playerchoice != "1")
             {
@@ -105,14 +204,14 @@ namespace HelloDungeon
                
 
                 name = Console.ReadLine();
-                Console.Write(">");
+               
 
                 Console.WriteLine("So" + name + "is that correct?");
 
                 Console.WriteLine("1.Yes");
                 Console.WriteLine("2.No");
+                Console.Write(">");
 
-               
                 playerchoice = Console.ReadLine();
                 Console.Write(">");
 
@@ -297,8 +396,23 @@ namespace HelloDungeon
 
                 // Player 1st choice
                 DisplayMenu("Would you like to accompany me to the inn" + name + "?", " Accompany Nio to the Inn and Start the Tutorial", "Skip the tutorial and Find Your own way in the land of Ertuum","Punch Nio");
-               
+                Console.Clear();
+                
+                if (playerchoice=="1")
+                {
+                    //BarFight!!/First Battle
+                    string enemyname = "";
+                    areanumber = 1;
+                    Console.WriteLine("The Inn is alive with bards and drunkards singing their songs." +
+                        "You and Nio make way to the bar and accidentally bump shoulders with a large oaf of a man." +
+                        "His Face visibly steaming he says' You made me spill my ale; know I'm going to spill your guts'" +
+                        "He throws a Right hook and you back up ready to engage.");
+                    Console.WriteLine(">Press any Key to Start Batlle");
+                    Console.ReadKey();
+                    
+                    BattleSystem(enemyname = "oaf", enmDmg = random.Next(6, 25), EnmHealth = 50, EnemyEncounter = true);
 
+                }
 
 
 
